@@ -4,18 +4,14 @@ let currentId = document.querySelector(".active").id.toString(); // 현재 페�
 
 // a 태그에서 마우스가 벗어날 때 "active" 클래스를 제거하는 함수를 정의합니다.
 function removeActiveClass(e) {
-
-  for (link of links) { // 현재 active 상태가 아닌 버튼들의 active 클래스를 제거합니다.
-    if (link.id != currentId) {
+  const activeList = document.querySelectorAll('.nav-link.active');
+  for (element of activeList) { // 현재 active 상태가 아닌 버튼들의 active 클래스를 제거합니다.
+    if (element.id != currentId) {
       link.classList.remove('active');
     }
   }
 
-  if (currentId == e.target.id) {
 
-  } else { // 현재 active 상태가 아닌 버튼의 active 클래스를 제거합니다.
-    this.classList.remove('active');
-  }
 }
 
 // a 태그 위로 마우스가 올라갈 때 "active" 클래스를 추가하는 함수를 정의합니다.
