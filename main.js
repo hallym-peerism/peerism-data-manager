@@ -2,24 +2,40 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 
+const express = require('express')
+const expressApp = express()
+const port = 11000
 
+expressApp.get('/', (req, res) => {
+    res.send('Hello World!')
+})
 
+expressApp.post("/send-value", (req, res) => {
+    console.log(req.body)
+    res.send(JSON.stringify({
+        success: true
+    }))
+})
+
+expressApp.listen(port, () => {
+    console.log(`Example app listening on port ${port}`)
+})
 
 function createWindow () {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
-        width: 1000,
-        height: 800,
+        width: 800,
+        height: 600,
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
     })
+    // and load the index.html of the app.
+    mainWindow.loadFile('index.html')
 
-    mainWindow.loadFile(path.join(__dirname, './src/static/main.html'))
-    mainWindow.webContents.openDevTools(); // Dev 툴 열기
+    // Open the DevTools.
+    // mainWindow.webContents.openDevTools()
 }
-
-
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -34,8 +50,6 @@ app.whenReady().then(() => {
     })
 })
 
-
-
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
@@ -45,5 +59,3 @@ app.on('window-all-closed', function () {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
-
-
