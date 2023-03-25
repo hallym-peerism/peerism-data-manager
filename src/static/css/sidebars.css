@@ -1,0 +1,4 @@
+.nav-link.active{
+    border-radius: 10px;
+    background-color: black;
+}
