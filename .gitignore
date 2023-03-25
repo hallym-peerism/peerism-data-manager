@@ -1,3 +1,7 @@
 node_modules
 package-lock.json
 out/
+res/
+.env
+src/static/icon/
+
