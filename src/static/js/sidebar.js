@@ -6,11 +6,10 @@ let currentId = document.querySelector(".active").id.toString(); // 현재 페�
 function removeActiveClass(e) {
   const activeList = document.querySelectorAll('.nav-link.active');
   for (element of activeList) { // 현재 active 상태가 아닌 버튼들의 active 클래스를 제거합니다.
-    if (element.id != currentId) {
-      link.classList.remove('active');
+    if (element.id.toString() != currentId) {
+      element.classList.remove('active');
     }
   }
-
 
 }
 
@@ -47,8 +46,11 @@ loadExternalHTML("./sensorView.html")
 // 콘텐츠를 변경하는 함수를 정의합니다.
 
 function changeContent(e) {
+  
   // 선택된 버튼에 해당하는 외부 HTML 파일을 불러옵니다.
   const buttonId = e.target.id;
+
+  // console.log(buttonId)
   if (buttonId === 'sensorView') {
     loadExternalHTML('./sensorView.html');
     currentId = 'sensorView';
