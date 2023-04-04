@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
     <style>
         body {
             /* background-color: rgb(83, 83, 83); */
@@ -56,6 +56,12 @@
         h1 {
             height: 0;
         }
+
+        #settings-icon {
+            float: right;
+            margin-top: 6px;
+            margin-right: 10px;
+        }
     </style>
     <script>
         class Sensor {
@@ -90,16 +96,20 @@
     <div class="main-panel container">
         <header>
             <h1 style="float: left;">Sensors</h1>
+
             <div class="dropdown">
-                <a id="add-btn" class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                    aria-expanded="false">
+                <a id="add-btn" class="btn btn-secondary dropdown-toggle" href="#" role="button"
+                    data-bs-toggle="dropdown" aria-expanded="false">
                     Register a sensor
                 </a>
-    
+
                 <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="./add-sensor.html">Register a new sensor</a></li>
                     <li><a class="dropdown-item" href="#">Register an existing sensor</a></li>
                 </ul>
+            </div>
+            <div id="settings-icon">
+                <i class="fa fa-gear"></i>
             </div>
         </header>
         <br>

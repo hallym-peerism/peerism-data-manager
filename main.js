@@ -10,8 +10,14 @@ expressApp.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
+
+/**
+ * use this endpoint when central server sends senser datas.
+ */
 expressApp.post("/send-value", (req, res) => {
     console.log(req.body)
+    // TODO: implementation of saving data using filesystem or database.
+    
     res.send(JSON.stringify({
         success: true
     }))
