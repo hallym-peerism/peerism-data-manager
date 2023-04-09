@@ -25,57 +25,52 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
 
 </head>
-
+ 
 <body>
 
-  <!-- TOP 80px 길이 -->
-  <div id="Top" style="width:100vw; height: 80px;">
-    <div id="Top-leftSide" ></div> 
+  <div id="Top">
 
-    <div id="Top-Main" >
-      
-      <div style="height: 20px"></div>
+    <div style="height: 20px"></div>
 
-      <div id="Top-Main-row" >
-        <h2 id="Sensors" font-size="32" font-family="Calibri">Sensors</h2>
-        <!-- 센서추가 버튼 -->
-        <div class="dropdown Top-Main-row-button">
-          <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            센서 추가
-          </a>
-        
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">새로운 센서 추가</a></li>
-            <li><a class="dropdown-item" href="#">기존 센서 등록</a></li>
-          </ul>
-        </div>
-        <!-- 센서추가 버튼 끝 -->
+    <div id="Top-row">
+      <h2 id="Sensors" font-size="32" font-family="Calibri">Sensors</h2>
+      <!-- 센서추가 버튼 -->
+      <div class="dropdown Top-Main-row-button">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+          aria-expanded="false">
+          센서 추가
+        </a>
+
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">새로운 센서 추가</a></li>
+          <li><a class="dropdown-item" href="#">기존 센서 등록</a></li>
+        </ul>
       </div>
-
-      <hr>
+      <!-- 센서추가 버튼 끝 -->
     </div>
-
-
     
-    
+    <div style="border-top: 1px solid #DEE2E6;"></div>
   </div>
+
+
+
+
+  </div> 
   <!-- TOP 끝 -->
 
-  <div id="leftSide" ></div>
-
-
+  <div style="height: 20px" id="container"></div>
 
   <!-- (중앙)Main 시작 -->
   <div id="Main">
 
 
-    <div style="height: 20px" id="Main-container" ></div>
- 
+    <!-- <div style="height: 20px" id="Main-container" ></div> -->
+
     <!-- itembox css js 삽입-->
     <link rel="stylesheet" href="./css/item-box.css">
     <script src="./js/item-box.js"></script>
-    <script> 
-      new SensorItemBox("제목1", sqlresponse1, "temp" , "#rw2qd").addDom();
+    <script>
+      new SensorItemBox("제목1", sqlresponse1, "temp", "#rw2qd").addDom();
       new SensorItemBox("제목2", sqlresponse2, "status", "#edasc").addDom();
       new SensorItemBox("제목2", sqlresponse2, "status", "#edasc").addDom();
       new SensorItemBox("제목2", sqlresponse2, "status", "#edasc").addDom();
@@ -85,13 +80,6 @@
 
   </div>
   <!-- Main 끝 -->
-
-  <div id="rightSide"></div>
-
-
-
-
-
 
 
 </body>
@@ -106,4 +94,4 @@
 
 <!-- main css, js 블러우는 코드 -->
 <link rel="stylesheet" href="./css/main.css">
-<!-- <script src="./js/main.js"></script>
+ 

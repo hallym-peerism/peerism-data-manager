@@ -3,83 +3,36 @@ flexbox 참고!
 https://heropy.blog/2018/11/24/css-flexible-box/ 
 */
 body {
-    background-color: #f8f9fa;
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
+#Top {
+  height: 80px;
+  width: 73vw;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
 
-  #Top {
-    display: flex;
-    /* https://chlolisher.tistory.com/33 
-    https://developer.mozilla.org/ko/docs/Web/CSS/flex-direction*/
-    flex-direction: row;
-    /* 
-    flex-direction 옵션 정리
-    row : 가로로 정렬
-    row-reverse : 가로로 오른쪽에서부터 정렬
-    column  : 세로로 정렬 
-    column-reverse : 세로로 밑에서부터 정렬
-    initial : 기본 값 (=row)   
-    inherit : 부모 요소의 설정값대로    
-    */
-    flex-wrap: wrap;
-    /* 
-    nowrap [기본값] : 아이템들이 한 줄에 정렬
-    wrap :  아이템들이 정순으로 
-    wrap-reverse  : 아이템들이 역순으로 
-    */
-  }
-
-  #leftSide {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  #Main {
-    width:73vw; 
-    height: 80vh;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  #Top-Main-row{
-    justify-content: space-between;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
+#Top-row {  
+  width: 73vw;
+  height: 73px;  
+  display: flex;
+  flex-direction: row; 
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+}
 
 
-  #Main #Main-container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  #Main-container{
-    width:73vw;
-  }
-  #Top-leftSide {
-    width:13.324vw; 
-    height: 80vh;
-  }
+#container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 73vw; 
+}
 
-
-  #leftSide{
-    width:13.324vw; 
-    height: 80vh;
-  }
-  #rightSide{
-    width:13.324vw; 
-    height: 80vh;
-  }
-  #Top-Main{
-    height: 80px;
-    width:73vw;
-  }
-  #Main-container{
-    position: absolute;
-  }
