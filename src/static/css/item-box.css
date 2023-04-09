@@ -1,0 +1,174 @@
+.itemFrame-itemDetail{
+    width: 100vw;
+    height: 340px;
+    border-radius: 10px;
+}
+
+.itemDetail-chart{
+    width: 100%;
+    height: 250px; 
+}
+.APIBox{
+    width: 100%;
+    height: 100px;
+
+  }
+
+.itemFrame{
+    margin: 10px 0px 0px 10px;
+    box-shadow: -3px -3px 5px 0px rgba(0, 0, 0, 0.3);
+    width: 73vw; 
+    height: 100px;
+    background-color: #FFFFFF;
+    border: 1px solid #707070;
+    transition: height 0.5s ease-in-out;/* 천천히 커지는 변화 */
+ 
+    display: flex; 
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.itembox {
+    width: 73vw; 
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+/* .itembox {
+    margin: 10px 0px 0px 10px;
+    box-shadow: -3px -3px 5px 0px rgba(0, 0, 0, 0.3);
+    width: 73vw;  
+    height: 450px;
+    background-color: #FFFFFF;
+    border: 1px solid #707070;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    transition: height 0.5s ease-in-out;
+} */
+
+/* 텍스트가 구역을 넘으면 ... 표시 */
+.itemFrame * {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.itembox-iconbox {
+    /* width: 8.75vw; */
+    width:105px; 
+    height: 100px;
+    /*border: 4px solid #707070; */
+}
+
+.itembox-iconbox-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #0D6EFD;
+    margin: 25px 10px;
+    border-radius: 100%;
+}
+
+
+.itembox-firstItem {
+    width: 30.75vw;
+    height: 100px;
+}
+
+.itembox-firstItem-title {
+    margin: 10px 0 0px 10px;
+    font: 26px Noto Sans KR Bold;
+    font-style: normal;
+    color: #000000;
+    /*border: 1px solid #707070; */
+}
+.itembox-firstItem-RepoId{ 
+    margin: 16px 0 0px 10px;
+    font: 16px Noto Sans KR Bold;
+    line-height: 18px;
+    font-style: normal;
+    color: #000000;
+    /*border: 1px solid #707070; */
+}
+
+
+/* lastupload time, value 박스 */
+.itembox-secondItem {
+    width: 30.625vw;
+    height: 100px;
+
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+.itembox-secondItem-lastupload{
+    margin: 10px 0 0 46px; 
+    width: 100vw;
+}
+.itembox-secondItem-timebox {
+    width: 180px;
+    /* 크기에 따라서 vw로 바뀜 */
+    height: 30px;
+    background-color: #0D6EFD;
+    margin: 15px 0px 0px 10px;
+    border-radius: 13px;
+    color: #FFFFFF;
+    float: left;
+}
+.itembox-secondItem-timebox-text{
+    font: 15px Noto Sans KR Bold;
+    line-height: 18px;
+    font-style: normal;
+    color: #FFFFFF;
+}
+
+
+
+
+
+
+
+/* 그래프 박스 */
+.itembox-thirdItem{
+    width: 25vw; /* 나중에 35w로 변경 */
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.itembox-fourItem * {
+    width: 5vw; 
+    height: 100px;
+}
+
+
+@media (max-width: 650px) { 
+
+
+    #myChart {
+        display: none;
+    } 
+
+    .itembox-firstItem {
+        width:50vw;
+    }
+
+    .itembox-thirdItem{
+        display: none;
+ 
+    }
+
+    .itembox-secondItem { 
+        width: 50vw;
+        height: 100px;
+    }
+    .itembox-iconbox {
+        display: none; 
+    }
+}

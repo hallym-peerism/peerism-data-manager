@@ -17,6 +17,7 @@ function createWindow () {
 
     mainWindow.loadFile(path.join(__dirname, './src/static/main.html'))
     mainWindow.webContents.openDevTools(); // Dev 툴 열기
+
 }
 
 
