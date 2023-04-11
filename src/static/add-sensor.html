@@ -1,34 +1,169 @@
-<html>
-    <head>
+<!doctype html>
+<html lang="en">
+
+<head>
 
 
-        <!-- bootstrap 코드 -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-        <meta name="generator" content="Hugo 0.108.0">
-        <title>Sidebars · Bootstrap v5.3</title>
 
-        <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-        <!-- bootstrap 끝 -->
+  
 
-    </head>
-    <body>
+  <!-- bootstrap 코드 --> 
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="generator" content="Hugo 0.108.0">
+  <title>Sidebars · Bootstrap v5.3</title>
 
-        <div id="Top" style="width:100vw; height: 80px;">
-            <div id="Top-leftSide" ></div> 
-            <div id="Top-Main" ></div>
+  <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/sidebars/">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <!-- bootstrap 끝 -->
+
+  <!-- fontawesome 코드 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css" />
+
+</head>
+ 
+<body>
+
+    <!-- Top시작 -->
+  <div id="Top">
+
+    <div style="height: 20px"></div>
+
+    <div id="Top-row">
+      <h2 id="Sensors" font-size="32" font-family="Calibri">새로운 센서 추가</h2>
+      <button type="button" class="btn-close" aria-label="Close" onclick="window.location.replace('main.html');"></button>
+    </div>
+    
+    <div style="border-top: 1px solid #DEE2E6;"></div>
+  </div>
+
+  </div> 
+  <!-- TOP 끝 -->
+
+  <!-- (중앙)Main 시작 -->
+  <div id="main">
+    <div>
+        <div class="input-group input-title" style="width : 73vw;">
+            <div class="input-group-text" id="basic-addon3" >제목</div>
+            <input type="text"  class="form-control" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+        </div>       
+
+
+        <div class="btn-group radio-icon" role="group" aria-label="Basic radio toggle button group" >
+          <div>
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+            <label class="btn btn-outline-primary" for="btnradio1">그래프 아이콘</label>
+            <div class="iconbox">
+              <img src="./svg/graph.svg" alt="timer" width="30px" height="30px">
+            </div>
+          </div>
+        <div>
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+          <label class="btn btn-outline-primary" for="btnradio2">온도 아이콘</label>
+          <div class="iconbox">
+            <img src="./svg/temporary.svg" alt="timer" width="30px" height="30px">
+          </div>
         </div>
 
+        <div>  
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+          <label class="btn btn-outline-primary" for="btnradio3">습도 아이콘</label>
+          <div class="iconbox">
+            <img src="./svg/humi.svg" alt="timer" width="30px" height="30px">
+          </div>
+        </div>
 
-        <div id="leftSide" ></div>
+        <div> 
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+          <label class="btn btn-outline-primary" for="btnradio4">속도 아이콘</label>
+          <div class="iconbox">
+            <img src="./svg/speed.svg" alt="timer" width="30px" height="30px">
+          </div>
+        </div>
 
-    </body>
+        <div>
+          <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" onclick="console.log('test');">
+          <label class="btn btn-outline-primary" for="btnradio5">Custom 아이콘</label>
+        </div>
+      </div>
+
+      <div style="border-top: 1px solid #DEE2E6; margin: 20px 0px;"></div> 
+
+      <div>
+        <label for="exampleFormControlTextarea1" class="input-group-text" style="width:100px;">상세 설명</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" style="height:200px; width : 73vw;"></textarea>
+      </div>
+      <div class="justify-right">
+        <button type="button" class="btn btn-secondary">제출하기</button>
+      </div>
+
+    </div>
+</div>
+  <!-- Main 끝 -->
+<style>
+  /* radio group 버튼 만들기 */
+  .radio-icon > div {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .radio-icon > div:nth-child(2) > .btn{
+    border-radius: 0px;
+  } 
+  .radio-icon > div:nth-child(3) > .btn{
+    border-radius: 0px;
+  } 
+  .radio-icon > div:nth-child(4) > .btn{
+    border-radius: 0px;
+  }  
+  .radio-icon > div:nth-child(1) > .btn{
+    border-top-right-radius : 0px; 
+    border-bottom-right-radius : 0px; 
+  }  
+  .radio-icon > div:nth-child(5) > .btn{
+    border-top-left-radius : 0px;  
+    border-bottom-left-radius : 0px; 
+  }  
+  /* radio group 버튼 만들기 끝 */
+
+  .input-title{
+    margin-top: 18px;
+  }
+  .radio-icon{
+    margin-top: 25px;
+  }
+
+  .iconbox{
+    width: 50px;
+    height: 50px;
+    background-color: #0D6EFD;
+    margin: 5px 0px 0px 0px; 
+    border-radius: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .justify-right{
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+</style>
+
+</body>
 
 </html>
+
+  <!-- main css, js 블러우는 코드 -->
+  <link rel="stylesheet" href="./css/add-sensor.css">
+  <script src="./js/add-sensor.js"></script>
+
+
 
 

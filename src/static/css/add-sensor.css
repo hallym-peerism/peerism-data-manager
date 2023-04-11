@@ -2,21 +2,15 @@
 flexbox 참고!
 https://heropy.blog/2018/11/24/css-flexible-box/ 
 */
-body {
-  background-color: #f8f9fa;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  opacity:0.2;  
-  transition: opacity 0.2s;
-  
-  /* 
-  자바스크립트에서 opacity를 1로 바꿔주면 페이드인 효과가 나옴 
-  로딩시 시간이 필요해서 넣음
-  */
-}
+ body {
+    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    transition: opacity 0.2s;
+    opacity:0;
+  }
 
 #Top {
   height: 80px;
@@ -36,10 +30,10 @@ body {
   align-items: center;
 }
 
-
-#container {
+#main{
+  width: 73vw;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  width: 73vw; 
 }
+  
