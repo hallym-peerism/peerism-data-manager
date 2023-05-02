@@ -43,3 +43,7 @@ body {
   flex-wrap: wrap;
   width: 73vw; 
 }
+
+body * {
+  font-family : Calibri;
+}
