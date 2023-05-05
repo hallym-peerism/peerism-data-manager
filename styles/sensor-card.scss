@@ -1,0 +1,91 @@
+.card-slot {
+  margin-top: 30px;
+  .card:hover {
+    border: 1px solid black;
+    padding: -10px;
+  }
+  .card {
+    margin-top: 16px;
+    padding: 8px;
+
+    td {
+      padding: 4px;
+    }
+
+    h1 {
+      margin-top: 0px;
+      padding: 0;
+      font-size: 30px;
+      font-weight: 500;
+    }
+
+    .keyview {
+      font-size: 14px;
+      -webkit-user-select:all;
+      -moz-user-select:all;
+      -ms-user-select:all;
+      user-select:all
+    }
+
+    table {
+      tr:nth-child(1) > td:nth-child(1) {
+        width: 60%;
+      }
+
+      tr:nth-child(1) > td:nth-child(2),
+      tr:nth-child(2) > td:nth-child(1) {
+        text-align: right;
+      }
+    }
+  }
+
+  canvas {
+    margin-top: 10px;
+  }
+}
+
+
+.plot {
+  padding: 10px;
+  background: white;
+  border-radius: 8px;
+}
+
+.ago-badge {
+  border-radius: 8px;
+  background-color: rgb(59, 59, 59);
+  color: white;
+  padding: 4px;
+  padding-inline: 12px;
+  font-size: 14px;
+}
+
+@mixin border-left-radius($r) {
+  border-radius: $r 0 0 $r;
+}
+
+@mixin border-right-radius($r) {
+  border-radius: 0 $r $r 0;
+}
+
+.last-value {
+  span {
+    font-size: 14px;
+    border: solid 1px rgb(59, 59, 59);
+  }
+
+  .left {
+    @include border-left-radius(8px);
+    background: rgb(59, 59, 59);
+    color: white;
+    padding: 2px 2px 2px 10px;
+  }
+
+  .right {
+    @include border-right-radius(8px);
+    border: solid 1px rgb(59, 59, 59);
+    background: white;
+    color: black;
+    padding: 2px 6px 2px 4px;
+  }
+}

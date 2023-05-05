@@ -4,7 +4,28 @@ const path = require('path')
 
 const express = require('express')
 const expressApp = express()
+const sqlite3 = require("sqlite3");
+
 const port = 11000
+
+const fs = require("fs")
+
+const db = new sqlite3.Database("./data.db")
+db.run("drop table if exists repos")
+    .run("create table if not exists repos(id,title,description)")
+    .run("insert into repos(id,title,description) values(?,?,?)", 0, "alice", "alice's sensor")
+    .each("select * from repos", (err, row) => {
+        console.log(`${row.id} ${row.title} ${row.description}`);
+    })
+    .close()
+
+expressApp.post('/new-repo', (req, res) => {
+    req.body
+})
+
+expressApp.get('/values', (req, res) => {
+    req.body
+})
 
 expressApp.get('/', (req, res) => {
     res.send('Hello World!')
@@ -17,7 +38,7 @@ expressApp.get('/', (req, res) => {
 expressApp.post("/send-value", (req, res) => {
     console.log(req.body)
     // TODO: implementation of saving data using filesystem or database.
-    
+
     res.send(JSON.stringify({
         success: true
     }))
@@ -27,7 +48,7 @@ expressApp.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
-function createWindow () {
+function createWindow() {
     // Create the browser window.
     const mainWindow = new BrowserWindow({
         width: 800,
