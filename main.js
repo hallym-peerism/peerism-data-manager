@@ -4,6 +4,9 @@ const path = require('path')
 
 const express = require('express')
 const expressApp = express()
+expressApp.use(express.json());
+expressApp.use(express.urlencoded({ extended: false }))
+
 const sqlite3 = require("sqlite3");
 
 const port = 11000
@@ -22,7 +25,8 @@ db.run("drop table if exists repos")
     .close()
 
 expressApp.post('/new-repo', (req, res) => {
-    req.body
+    console.log(req.body)
+    res.send(req.body)
 })
 
 expressApp.get('/values', (req, res) => {
