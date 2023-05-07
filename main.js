@@ -15,9 +15,10 @@ const fs= require("fs")
 
 const db = new sqlite3.Database("./data.db")
 
+
 new Promise((resolve, reject) => resolve(db))
     .then(db => new Promise((resolve, reject) => {
-        db.run("drop table if exists repose", err => {
+        db.run("drop table if exists repos", err => {
             resolve(db)
         })
     }))
@@ -33,16 +34,7 @@ new Promise((resolve, reject) => resolve(db))
     }))
     .then(db => new Promise((resolve, reject) => {
         db.run("create table if not exists svalues(sensorid integer,valueid integer,value integer,beforehash text)", err => {
-            resolve(db)
-        })
-    }))
-    .then(db => new Promise((resolve, reject) => {
-        db.run("drop table if exists svalues", err => {
-            resolve(db)
-        })
-    }))
-    .then(db => new Promise((resolve, reject) => {
-        db.run("drop table if exists svalues", err => {
+            console.log(this)
             resolve(db)
         })
     }))
@@ -57,30 +49,24 @@ new Promise((resolve, reject) => resolve(db))
         db.close()
     }))
 
-
-// db.run("drop table if exists repos", err => {
-//     db.run("drop table if exists svalues", err => {
-//         db.run("create table if not exists repos(sensorid,title,description)", err => {
-//             db.run("create table if not exists svalues(sensorid integer,valueid integer,value integer,beforehash text)", err => {
-//                 db.run("insert into repos(sensorid,title,description) values(?,?,?)", 0, "alice", "alice's sensor", err => {
-//                     db.each("select * from repos", (err, row) => {
-//                         console.log(`${row.sensorid} ${row.title} ${row.description}`);
-//                     }, err => {
-//                         db.close()
-//                     })
-//                 })
-//             })
-//         })
-//     })
-// })
-
 expressApp.post('/new-repo', (req, res) => {
     console.log(req.body)
+
     res.send(req.body)
 })
 
 expressApp.get('/values', (req, res) => {
-    req.body
+    const sensorid = req.body.sensorid
+    rows = []
+    db.each(`
+        select valueid, value, beforehash 
+        from svalues 
+        where sensorid=${sensorid}
+    `, (err, row) => {
+        rows.push(row)
+    }, (err, count) => {
+        res.send(rows)
+    })
 })
 
 expressApp.get('/', (req, res) => {
