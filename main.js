@@ -5,7 +5,7 @@ const path = require('path')
 const express = require('express')
 const expressApp = express()
 expressApp.use(express.json());
-expressApp.use(express.urlencoded({ extended: false }))
+expressApp.use(express.urlencoded({extended: false}))
 
 const sqlite3 = require("sqlite3");
 
@@ -15,21 +15,64 @@ const fs = require("fs")
 
 const db = new sqlite3.Database("./data.db")
 
-db.run("drop table if exists repos", err => {
-    db.run("drop table if exists svalues", err => {
-        db.run("create table if not exists repos(sensorid,title,description)", err => {
-            db.run("create table if not exists svalues(sensorid integer,valueid integer,value integer,beforehash text)", err => {
-                db.run("insert into repos(sensorid,title,description) values(?,?,?)", 0, "alice", "alice's sensor", err => {
-                    db.each("select * from repos", (err, row) => {
-                        console.log(`${row.sensorid} ${row.title} ${row.description}`);
-                    }, err => {
-                        db.close()
-                    })
-                })
-            })
+new Promise((resolve, reject) => resolve(db))
+    .then(db => new Promise((resolve, reject) => {
+        db.run("drop table if exists repose", err => {
+            resolve(db)
         })
-    })
-})
+    }))
+    .then(db => new Promise((resolve, reject) => {
+        db.run("drop table if exists svalues", err => {
+            resolve(db)
+        })
+    }))
+    .then(db => new Promise((resolve, reject) => {
+        db.run("create table if not exists repos(sensorid,title,description)", err => {
+            resolve(db)
+        })
+    }))
+    .then(db => new Promise((resolve, reject) => {
+        db.run("create table if not exists svalues(sensorid integer,valueid integer,value integer,beforehash text)", err => {
+            resolve(db)
+        })
+    }))
+    .then(db => new Promise((resolve, reject) => {
+        db.run("drop table if exists svalues", err => {
+            resolve(db)
+        })
+    }))
+    .then(db => new Promise((resolve, reject) => {
+        db.run("drop table if exists svalues", err => {
+            resolve(db)
+        })
+    }))
+    .then(db => new Promise((resolve, reject) => {
+        db.run("insert into repos(sensorid,title,description) values(?,?,?)", 0, "alice", "alice's sensor", err => {
+            resolve(db)
+        })
+    }))
+    .then(db => db.each("select * from repos", (err, row) => {
+        console.log(`${row.sensorid} ${row.title} ${row.description}`);
+    }, err => {
+        db.close()
+    }))
+
+
+// db.run("drop table if exists repos", err => {
+//     db.run("drop table if exists svalues", err => {
+//         db.run("create table if not exists repos(sensorid,title,description)", err => {
+//             db.run("create table if not exists svalues(sensorid integer,valueid integer,value integer,beforehash text)", err => {
+//                 db.run("insert into repos(sensorid,title,description) values(?,?,?)", 0, "alice", "alice's sensor", err => {
+//                     db.each("select * from repos", (err, row) => {
+//                         console.log(`${row.sensorid} ${row.title} ${row.description}`);
+//                     }, err => {
+//                         db.close()
+//                     })
+//                 })
+//             })
+//         })
+//     })
+// })
 
 expressApp.post('/new-repo', (req, res) => {
     console.log(req.body)
