@@ -10,12 +10,14 @@ const port = 11000
 
 const fs = require("fs")
 
+
 const db = new sqlite3.Database("./data.db")
 db.run("drop table if exists repos")
-    .run("create table if not exists repos(id,title,description)")
-    .run("insert into repos(id,title,description) values(?,?,?)", 0, "alice", "alice's sensor")
+    .run("create table if not exists repos(sensorid integer,title text,description text)")
+    .run("create table if not exists svalues(sensorid integer,valueid integer,value integer,beforehash text)")
+    // .run("insert into repos(id,title,description) values(?,?,?)", 0, "alice", "alice's sensor")
     .each("select * from repos", (err, row) => {
-        console.log(`${row.id} ${row.title} ${row.description}`);
+        console.log(`${row.sensorid} ${row.title} ${row.description}`);
     })
     .close()
 
