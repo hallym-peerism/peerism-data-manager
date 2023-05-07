@@ -11,7 +11,8 @@ body {
 
   opacity:0.2;  
   transition: opacity 0.2s;
-  
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* 폰트 설정 */
+
   /* 
   자바스크립트에서 opacity를 1로 바꿔주면 페이드인 효과가 나옴 
   로딩시 시간이 필요해서 넣음

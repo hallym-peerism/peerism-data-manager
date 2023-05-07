@@ -41,11 +41,12 @@ class SensorItemBox {
     return this;
   }
 
+
   addChart() {
     const ctx = this.itembox.querySelector("#myChart");
+    const ctxDetail = this.itembox.querySelector("#myChartDetail");
 
     const data = {
-      //labels: ["04.01", "04.01", "04.01", "04.01", "04.02", "04.02", "04.03"],
       labels: this.sqlRes['labels'],
       datasets: [
         {
@@ -62,26 +63,29 @@ class SensorItemBox {
     };
 
 
+    /* 크기 확장 전  */
     const myChart = new Chart(ctx, {
       type: "line",
       data: data,
       options: {
         scales: {
-
+          y : {
+            display: false // y축 레이블 숨기기
+          }
         },
         aspectRatio: 2, // 속성은 차트의 가로 세로 비율을 설정
         responsive: true, // 속성은 차트가 브라우저 크기에 맞게 반응하는지 여부를 설정
         maintainAspectRatio: false, // 속성은 차트의 가로 세로 비율을 유지할지 여부를 설정
         plugins: {
-          legend: {
+          legend: {  
             display: false,
           },
         },
       },
     });
 
-    const ctxDetail = this.itembox.querySelector("#myChartDetail");
-
+    
+  /* 크기 확장 후  */
     new Chart(ctxDetail, {
       type: "line",
       data: data,
@@ -99,20 +103,23 @@ class SensorItemBox {
         },
       },
     });
+
+    
   }
+  
 }
 
 
-const sqlresponse1 = {
-  "data": [1, 2, 1.4, 0.2, 3.1, 2.2, 0.5, 3.1, 2.2, 0.5, 3.1, 2.2, 0.5],
-  "labels": ['', '', '', ''
-    , '', '', '', '', '', '', '', '', '']
-}
-const sqlresponse2 = {
-  "data": [1, 1.2, 1.1, 1.0, 0.5, 0.55, 0.2],
-  "labels": ['', '', '', '', '', '', '']
-}
 
+// const sqlresponse1 = {
+//   "data": [1, 2, 1.4, 0.2, 3.1, 2.2, 0.5, 3.1, 2.2, 0.5, 3.1, 2.2, 0.5],
+//   "labels": ['', '', '', ''
+//     , '', '', '', '', '', '', '', '', '']
+// }
+// const sqlresponse2 = {
+//   "data": [1, 1.2, 1.1, 1.0, 0.5, 0.55, 0.2],
+//   "labels": ['', '', '', '', '', '', '']
+// }
 
 
 const changeHeight = (buttonEle) => {
