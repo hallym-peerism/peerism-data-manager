@@ -13,16 +13,23 @@ const port = 11000
 
 const fs = require("fs")
 
-
 const db = new sqlite3.Database("./data.db")
-db.run("drop table if exists repos")
-    .run("create table if not exists repos(sensorid integer,title text,description text)")
-    .run("create table if not exists svalues(sensorid integer,valueid integer,value integer,beforehash text)")
-    // .run("insert into repos(id,title,description) values(?,?,?)", 0, "alice", "alice's sensor")
-    .each("select * from repos", (err, row) => {
-        console.log(`${row.sensorid} ${row.title} ${row.description}`);
+
+db.run("drop table if exists repos", err => {
+    db.run("drop table if exists svalues", err => {
+        db.run("create table if not exists repos(sensorid,title,description)", err => {
+            db.run("create table if not exists svalues(sensorid integer,valueid integer,value integer,beforehash text)", err => {
+                db.run("insert into repos(sensorid,title,description) values(?,?,?)", 0, "alice", "alice's sensor", err => {
+                    db.each("select * from repos", (err, row) => {
+                        console.log(`${row.sensorid} ${row.title} ${row.description}`);
+                    }, err => {
+                        db.close()
+                    })
+                })
+            })
+        })
     })
-    .close()
+})
 
 expressApp.post('/new-repo', (req, res) => {
     console.log(req.body)
