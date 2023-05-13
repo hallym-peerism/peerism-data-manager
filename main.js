@@ -1,20 +1,16 @@
 // Modules to control application life and create native browser window
-const {app, BrowserWindow} = require('electron')
+const { app, BrowserWindow } = require('electron')
 const path = require('path')
 
 const express = require('express')
 const expressApp = express()
 expressApp.use(express.json());
-expressApp.use(express.urlencoded({extended: false}))
+expressApp.use(express.urlencoded({ extended: false }))
 
 const sqlite3 = require("sqlite3");
-
 const port = 11000
-
 const fs= require("fs")
-
 const db = new sqlite3.Database("./data.db")
-
 
 new Promise((resolve, reject) => resolve(db))
     .then(db => new Promise((resolve, reject) => {
