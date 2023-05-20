@@ -2,7 +2,6 @@ const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const http = require('http')
 const url = require('url')
-const CrpytoJS = require('crypto-js')
 
 const express = require('express')
 const expressApp = express()
@@ -14,40 +13,30 @@ const port = 11000
 const fs= require("fs")
 const db = new sqlite3.Database("./data.db")
 
-let peers = []
+const models = require("./models/")
 
-new Promise((resolve, reject) => resolve(db))
-    .then(db => new Promise((resolve, reject) => {
-        db.run("drop table if exists repos", err => {
-            resolve(db)
-        })
-    }))
-    .then(db => new Promise((resolve, reject) => {
-        db.run("drop table if exists svalues", err => {
-            resolve(db)
-        })
-    }))
-    .then(db => new Promise((resolve, reject) => {
-        db.run("create table if not exists repos(sensorid,title,description)", err => {
-            resolve(db)
-        })
-    }))
-    .then(db => new Promise((resolve, reject) => {
-        db.run("create table if not exists svalues(sensorid integer,valueid integer,value integer,beforehash text)", err => {
-            console.log(this)
-            resolve(db)
-        })
-    }))
-    .then(db => new Promise((resolve, reject) => {
-        db.run("insert into repos(sensorid,title,description) values(?,?,?)", 0, "alice", "alice's sensor", err => {
-            resolve(db)
-        })
-    }))
-    .then(db => db.each("select * from repos", (err, row) => {
-        console.log(`${row.sensorid} ${row.title} ${row.description}`);
-    }, err => {
-        db.close()
-    }))
+// ;(async function() {
+//     models.repo.create({
+//         sensorid: "123",
+//         title: "alice",
+//         description: "this is a description."
+//     })
+//     models.repo.create({
+//         sensorid: "123",
+//         title: "bob",
+//         description: "this is a description."
+//     })
+//     models.repo.create({
+//         sensorid: "123",
+//         title: "carol",
+//         description: "this is a description."
+//     })
+//     models.repo.destroy({
+//         where: {
+//             title: "bob"
+//         }
+//     });
+// })()
 
 expressApp.post('/new-repo', (req, res) => {
     console.log(req.body)
@@ -74,17 +63,17 @@ expressApp.get('/', (req, res) => {
 })
 
 
-/**
- * use this endpoint when central server sends senser datas.
- */
-expressApp.post("/send-value", (req, res) => {
-    console.log(req.body)
-    // TODO: implementation of saving data using filesystem or database.
-
-    res.send(JSON.stringify({
-        success: true
-    }))
-})
+// /**
+//  * use this endpoint when central server sends senser datas.
+//  */
+// expressApp.post("/send-value", (req, res) => {
+//     console.log(req.body)
+//     // TODO: implementation of saving data using filesystem or database.
+//
+//     res.send(JSON.stringify({
+//         success: true
+//     }))
+// })
 
 expressApp.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
@@ -105,14 +94,6 @@ function createWindow() {
 }
 
 app.whenReady().then(() => {
-    http.get({
-        hostname: '192.168.0.12',
-        port: 8000,
-        path: `/hello?address=${address}`, // TODO: Get address.
-        agent: false,
-    }, (res) => {
-        console.log(res)
-    })
     createWindow()
 
     app.on('activate', function () {
@@ -121,13 +102,5 @@ app.whenReady().then(() => {
 })
 
 app.on('window-all-closed', function () {
-    http.get({
-        hostname: '192.168.0.12',
-        port: 8000,
-        path: '/bye',
-        agent: false,
-    }, (res) => {
-        console.log(res)
-    })
     if (process.platform !== 'darwin') app.quit()
 })

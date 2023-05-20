@@ -19,12 +19,14 @@
     "@electron-forge/maker-squirrel": "^6.0.5",
     "@electron-forge/maker-zip": "^6.0.5",
     "electron": "^23.1.4",
-    "electron-rebuild": "^3.2.9"
+    "electron-rebuild": "^3.2.9",
+    "sequelize-cli": "^6.6.0"
   },
   "dependencies": {
     "crypto-js": "^4.1.1",
     "electron-squirrel-startup": "^1.0.0",
     "express": "^4.18.2",
+    "sequelize": "^6.31.1",
     "sqlite3": "^5.1.6"
   }
 }
