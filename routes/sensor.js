@@ -1,6 +1,9 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+const router = express.Router()
 const models = require('../models')
+
+// const sequelize = require('sequelize')
+// const svalue = require('../models/svalue')(sequelize, sequelize.DataTypes)
 
 router.get('/:sensorid', function (req, res) {
     models.svalue.findAll({
@@ -12,13 +15,13 @@ router.get('/:sensorid', function (req, res) {
     })
 })
 
-router.delete("/:sensorid", function(req, res) {
+router.delete("/:sensorid", function (req, res) {
     models.svalue.destroy({
         where: { sensorid: req.params.sensorid }
     }).then(_ => res.send("success"))
 })
 
-router.delete('/:sensorid/:valueid', function(req, res) {
+router.delete('/:sensorid/:valueid', function (req, res) {
     models.svalue.destroy({
         where: {
             sensorid: req.params.sensorid,
@@ -27,4 +30,4 @@ router.delete('/:sensorid/:valueid', function(req, res) {
     }).then(_ => res.send("success"))
 })
 
-module.exports = router;
+module.exports = router

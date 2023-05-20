@@ -1,5 +1,12 @@
 const http = require("http");
+const Peer = require("../models/peer")
 
+/**
+ * 
+ * @param {string} url address of node-tracker
+ * @param {number} port port of node-tracker
+ * @returns {Promise<[Peer]>}
+ */
 function getPeers(url, port) {
     return new Promise((resolve, reject) => {
         http.get({
@@ -8,7 +15,7 @@ function getPeers(url, port) {
             path: '/nodes',
             agent: false,
         }, (res) => {
-            resolve(res)
+            resolve(JSON.parse(res).map(Peer.from))
         })
     })
 }

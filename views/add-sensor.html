@@ -69,7 +69,7 @@
     </div>
     <script>
         $("#submit-btn").click(() => {
-            $.post("http://localhost:11000/new-repo", {
+            $.post("http://localhost:11000/sensors", {
                 id: $("#sensor-id").val(),
                 desc: $("#sensor-desc").val()
             }, function (data) {

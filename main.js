@@ -14,29 +14,21 @@ const fs= require("fs")
 const db = new sqlite3.Database("./data.db")
 
 const models = require("./models/")
+// console.log("models:")
+// console.log(Object.keys(models.repo))
 
-// ;(async function() {
-//     models.repo.create({
-//         sensorid: "123",
-//         title: "alice",
-//         description: "this is a description."
-//     })
-//     models.repo.create({
-//         sensorid: "123",
-//         title: "bob",
-//         description: "this is a description."
-//     })
-//     models.repo.create({
-//         sensorid: "123",
-//         title: "carol",
-//         description: "this is a description."
-//     })
-//     models.repo.destroy({
-//         where: {
-//             title: "bob"
-//         }
-//     });
-// })()
+models.svalue.create({
+    sensorid: "123",
+    valueid: 1,
+    value: 314,
+    beforehash: "null"
+})
+.then(_ => models.svalue.findAll())
+.then(records => console.log(JSON.stringify(records, null, 4)))
+
+
+const {sensor, sensors} = require("routes");
+express.use("/sensor", sensor)
 
 expressApp.post('/new-repo', (req, res) => {
     console.log(req.body)
@@ -88,7 +80,7 @@ function createWindow() {
         }
     })
 
-    mainWindow.loadFile('index.html')
+    mainWindow.loadFile('views/index.html')
 
     // mainWindow.webContents.openDevTools()
 }
