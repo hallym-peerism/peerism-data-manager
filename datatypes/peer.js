@@ -4,6 +4,10 @@ module.exports = class Peer {
         this.port = port
     }
 
+    /**
+     *
+     * @returns {Peer}
+     */
     static from(json) {
         return Object.assign(new Peer(), json);
     }

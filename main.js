@@ -26,9 +26,9 @@ models.svalue.create({
 .then(_ => models.svalue.findAll())
 .then(records => console.log(JSON.stringify(records, null, 4)))
 
+expressApp.use("/sensor", require("./routes/sensor"))
+expressApp.use("/sensors", require("./routes/sensors"))
 
-const {sensor, sensors} = require("routes");
-express.use("/sensor", sensor)
 
 expressApp.post('/new-repo', (req, res) => {
     console.log(req.body)

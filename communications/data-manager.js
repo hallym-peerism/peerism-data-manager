@@ -1,10 +1,11 @@
 const http = require("http");
 const Peer = require("../datatypes/peer")
+const Repo = require("../datatypes/repo")
 
 /**
  * 
  * @param {Peer} peer 
- * @returns {}
+ * @returns {Promise<[Repo]>}
  */
 function getSensorList(peer) {
     return new Promise((resolve, reject) => {
@@ -14,11 +15,11 @@ function getSensorList(peer) {
             path: '/sensors',
             agent: false,
         }, (res) => {
-            resolve(JSON.parse(res).map(Peer.from))
+            resolve(JSON.parse(res).map(Repo.from))
         })
     })
 }
 
 module.exports = {
-    getPeers: getPeers
+    getSensorList: getSensorList
 }
