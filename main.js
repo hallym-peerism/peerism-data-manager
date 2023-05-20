@@ -2,6 +2,7 @@ const { app, BrowserWindow } = require('electron')
 const path = require('path')
 const http = require('http')
 const url = require('url')
+const CrpytoJS = require('crypto-js')
 
 const express = require('express')
 const expressApp = express()
@@ -12,6 +13,8 @@ const sqlite3 = require("sqlite3");
 const port = 11000
 const fs= require("fs")
 const db = new sqlite3.Database("./data.db")
+
+let peers = []
 
 new Promise((resolve, reject) => resolve(db))
     .then(db => new Promise((resolve, reject) => {
@@ -104,7 +107,7 @@ function createWindow() {
 app.whenReady().then(() => {
     http.get({
         hostname: '192.168.0.12',
-        port: 80,
+        port: 8000,
         path: `/hello?address=${address}`, // TODO: Get address.
         agent: false,
     }, (res) => {
@@ -120,7 +123,7 @@ app.whenReady().then(() => {
 app.on('window-all-closed', function () {
     http.get({
         hostname: '192.168.0.12',
-        port: 80,
+        port: 8000,
         path: '/bye',
         agent: false,
     }, (res) => {
