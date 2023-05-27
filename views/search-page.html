@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <!-- <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"> -->
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"/>
+    <link href="styles/sensor-card.css" rel="stylesheet"/>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+
+<body>
+    <br>
+    <div class="main-panel container">
+        <header>
+            <span> 
+                <input style ="display: span;">
+            
+            
+            <button type="button" > <i class="fa-solid fa-magnifying-glass"></i> </button>
+            </span>
+
+            <div id="settings-icon">
+                <a href="./index.html"><i id="back-btn" class="fa fa-rotate-left"></i></a>
+            </div> 
+        </header>
+        <br>
+
+        <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">title</th>
+                <th scope="col">RepoId</th>
+                <th scope="col">Description</th>
+                <th scope="col">addButton</th> 
+              </tr>
+            </thead>
+
+            <tbody>
+
+            </tbody>
+          </table>
+
+    </div>
+
+
+</body>
+
+</html>
+<script>
+    class rowItem {
+        title;
+        RepoId;
+        description;
+        constructor(title, repoId, description) {
+            this.title = title; 
+            this.repoId = repoId;
+            this.description = description;
+        }
+    }
+    
+
+    class tableUnit {
+        
+        addRow(item){
+
+            const title = item.title; 
+            const repoId = item.repoId; 
+            const description = item.description;
+            const callback = () => {}
+            
+            $(`.table > tbody`).append( `
+              <tr> 
+                <td>${title}</td>
+                <td>${repoId}</td> 
+                <td>${description}</td>
+                <td>
+                    <a href= "" onclick="callback()"><i class="fa-solid fa-plus"></i></a>
+                </td>
+              </tr>
+            ` )
+        }        
+    }
+
+    const tbUnit = new tableUnit()
+    tbUnit.addRow( new rowItem("temprary sensor", "324325134", "설명") ) 
+    
+    tbUnit.addRow( new rowItem("local humi", "3434", "설명2") )
+
+
+</script>
+
+<style>
+    table{
+        table-layout: fixed;
+        
+    }
+    table > thead {
+        text-align: center;
+    }
+
+    table * {
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    header * {
+        height:100%;
+    }
+    
+    header button {
+        background: black;
+        color: white;
+    }
+
+
+    body {
+        background-color: rgb(250, 250, 250);
+        height: 100vh;
+    }
+
+    .main-panel {
+        background-color: rgb(250, 250, 250);
+        border-radius: 10px;
+        padding: 16px;        
+    }
+    
+    #fa-plus {
+        background: black;
+        border: 1px solid black;
+        border-radius: 4px;
+        padding: 4px;
+        float: right;
+        color: white;
+    }
+    
+    #fa-plus:hover {
+        background: white;
+        color: black;
+    }
+    
+    #back-btn {
+        background: black;
+        border: 1px solid black;
+        border-radius: 4px;
+        padding: 4px;
+        float: right;
+        color: white;
+    }
+
+    #back-btn:hover {
+        background: white;
+        color: black;
+    }
+
+
+
+    h1 {
+        height: 0;
+    }
+
+</style>
