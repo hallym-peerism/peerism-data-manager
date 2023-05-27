@@ -1,5 +1,5 @@
 const http = require("http");
-const Peer = require("../models/peer")
+const Peer = require("../datatypes/peer")
 
 /**
  * 
@@ -8,6 +8,8 @@ const Peer = require("../models/peer")
  * @returns {Promise<[Peer]>}
  */
 function getPeers(url, port) {
+    
+
     return new Promise((resolve, reject) => {
         http.get({
             hostname: url,

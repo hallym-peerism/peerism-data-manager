@@ -43,6 +43,7 @@
                 <th scope="col">title</th>
                 <th scope="col">RepoId</th>
                 <th scope="col">Description</th>
+                <th scope="col">count</th>
                 <th scope="col">addButton</th> 
               </tr>
             </thead>
@@ -63,10 +64,12 @@
         title;
         RepoId;
         description;
-        constructor(title, repoId, description) {
+        count;
+        constructor(title, repoId, description, count) {
             this.title = title; 
             this.repoId = repoId;
             this.description = description;
+            this.count = count;
         }
     }
     
@@ -78,6 +81,7 @@
             const title = item.title; 
             const repoId = item.repoId; 
             const description = item.description;
+            const count = item.count;
             const callback = () => {}
             
             $(`.table > tbody`).append( `
@@ -85,6 +89,7 @@
                 <td>${title}</td>
                 <td>${repoId}</td> 
                 <td>${description}</td>
+                <td>${count}</td>
                 <td>
                     <a href= "" onclick="callback()"><i class="fa-solid fa-plus"></i></a>
                 </td>
@@ -94,9 +99,9 @@
     }
 
     const tbUnit = new tableUnit()
-    tbUnit.addRow( new rowItem("temprary sensor", "324325134", "설명") ) 
+    tbUnit.addRow( new rowItem("temprary sensor", "324325134", "설명" ,25) ) 
     
-    tbUnit.addRow( new rowItem("local humi", "3434", "설명2") )
+    tbUnit.addRow( new rowItem("local humi", "3434", "설명2", 25) )
 
 
 </script>
