@@ -5,7 +5,7 @@ const Peer = require("../models/peer")
  * 
  * @param {string} url address of node-tracker
  * @param {number} port port of node-tracker
- * @returns {Promise<[Peer]>}
+ * @returns {Promise<[Peer]>} all peers what is turned on.
  */
 function getPeers(url, port) {
     return new Promise((resolve, reject) => {
