@@ -121,41 +121,15 @@
                             }
                         }
                     }
-                });
+                })
                 return [card]
             }
         }
 
         window.onload = () => {
-            $(".card-slot")
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
-                .append(new Sensor("alice").toDom())
+            for (let i = 0; i < 10; i++)
+                $(".card-slot")
+                    .append(new Sensor("alice").toDom())
         }
     </script>
 </head>
