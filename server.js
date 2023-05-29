@@ -9,8 +9,14 @@ const fs = require("fs")
 const db = new sqlite3.Database("./data.db")
 
 
+const bodyParser = require('body-parser');
+expressApp.use(bodyParser.json());
+expressApp.use(bodyParser.urlencoded({ extended: false }));
+
 const cors = require('cors');
 expressApp.use(cors());
+
+  
 
 const models = require("./models/")
 
@@ -21,8 +27,8 @@ const models = require("./models/")
 // })
 
 // models.svalue.create({ 
-//     sensorid: "123",
-//     valueid: 1,
+//     sensorid: "1234",
+//     valueid: 12,
 //     value: 314,
 //     beforehash: "null"
 // })

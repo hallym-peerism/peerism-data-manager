@@ -25,7 +25,7 @@
     <div class="main-panel container">
         <header>
             <span>
-                <input id="inputQuery" style="display: span;">
+                <input id="inputQuery" style="display: span;" value="제">
 
 
                 <button type="button" onclick="searchEvnt()"> <i class="fa-solid fa-magnifying-glass"></i> </button>
@@ -52,7 +52,8 @@
 
             </tbody>
         </table>
-
+        <button class="addBtn" onclick='addRepo( {" title":"제목1","description":"소개","count":1,"sensorid":"1234"} )'><i
+                class="fa-solid fa-plus"></i></button>
     </div>
 
 
@@ -133,6 +134,16 @@
     }
 
 
+    .addBtn {
+        border: none;
+        color: black;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+        border-radius: 2px;
+    }
 
     h1 {
         height: 0;

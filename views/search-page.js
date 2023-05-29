@@ -1,11 +1,11 @@
 class rowItem {
     title;
-    RepoId;
+    sensorid;
     description;
     count;
-    constructor(title, repoId, description, count) {
+    constructor(title, sensorid, description, count) {
         this.title = title;
-        this.repoId = repoId;
+        this.sensorid = sensorid;
         this.description = description;
         this.count = count;
     }
@@ -20,20 +20,20 @@ class tableUnit {
     addRow(item) {
 
         const title = item.title;
-        const repoId = item.repoId;
+        const sensorid = item.sensorid;
         const description = item.description;
         const count = item.count;
-        const callback = () => { }
-
-        this.myself.append(`
+        this.myself.append(` 
+        
           <tr> 
             <td>${title}</td>
-            <td>${repoId}</td> 
+            <td>${sensorid}</td> 
             <td>${description}</td>
             <td>${count}</td>
             <td>
-                <a href= "" onclick="callback()"><i class="fa-solid fa-plus"></i></a>
-            </td>
+            
+                <button class="addBtn" onclick="addRepo( '${title}', '${sensorid}', '${description}'  )"><i class="fa-solid fa-plus"></i></button>
+            </td> 
           </tr>
         ` )
     }
@@ -65,7 +65,31 @@ const searchEvnt = () => {
         for (let res of responses) {
             tbUnit.addRow(new rowItem(res.title, res.sensorid, res.description, res.count))
         }
-    }).cathc((err) => {
-        console.fetch("검색 url 조회 에러!")
+    }).catch((err) => {
+        console.error("검색 url 조회 에러!")
     })
+}
+
+const addRepo = (title, sensorid, description) => {
+    repo = {
+        title: title,
+        sensorid: sensorid,
+        description: description
+    }
+    const port = 11000
+    const url = `http://127.0.0.1:${port}/searchApi/addRepo/`
+
+    $.ajax({ // fetch는 버그 있음!
+        url: url,
+        type: 'POST',
+        dataType: 'json',
+        contentType: 'application/json',
+        data: JSON.stringify(repo),
+        success: function (res) {
+            console.log(res);
+        },
+        error: function (err) {
+            console.error("repo 추가 에러!");
+        }
+    });
 }
