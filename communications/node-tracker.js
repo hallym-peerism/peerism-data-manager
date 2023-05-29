@@ -8,7 +8,6 @@ const Peer = require("../datatypes/peer")
  * @returns {Promise<[Peer]>}
  */
 function getPeers(url, port) {
-    
 
     return new Promise((resolve, reject) => {
         http.get({
@@ -21,6 +20,20 @@ function getPeers(url, port) {
         })
     })
 }
+
+// 테스트용 더미 함수
+// function getPeers(url, port) {
+//     return new Promise((resolve, reject) => {
+//                     resolve((
+
+//                     [{
+//                         address : "127.0.0.1",
+//                         port : "11000"
+//                     }]
+
+//                     ).map(Peer.from))
+//             })
+// }
 
 module.exports = {
     getPeers: getPeers

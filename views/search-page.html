@@ -25,10 +25,10 @@
     <div class="main-panel container">
         <header>
             <span> 
-                <input style ="display: span;">
+                <input id="inputQuery" style ="display: span;">
             
             
-            <button type="button" > <i class="fa-solid fa-magnifying-glass"></i> </button>
+            <button type="button" onclick="searchEvnt()"> <i class="fa-solid fa-magnifying-glass"></i> </button>
             </span>
 
             <div id="settings-icon">
@@ -41,7 +41,7 @@
             <thead>
               <tr>
                 <th scope="col">title</th>
-                <th scope="col">RepoId</th>
+                <th scope="col">sensorId</th>
                 <th scope="col">Description</th>
                 <th scope="col">count</th>
                 <th scope="col">addButton</th> 
@@ -60,6 +60,7 @@
 
 </html>
 <script>
+    
     class rowItem {
         title;
         RepoId;
@@ -75,6 +76,9 @@
     
 
     class tableUnit {
+        constructor(){
+            this.myself = $(`.table > tbody`)
+        }
         
         addRow(item){
 
@@ -84,7 +88,7 @@
             const count = item.count;
             const callback = () => {}
             
-            $(`.table > tbody`).append( `
+            this.myself.append( `
               <tr> 
                 <td>${title}</td>
                 <td>${repoId}</td> 
@@ -96,14 +100,38 @@
               </tr>
             ` )
         }        
+
+        removeAll(){
+            this.myself.empty()
+        }
     }
 
-    const tbUnit = new tableUnit()
-    tbUnit.addRow( new rowItem("temprary sensor", "324325134", "설명" ,25) ) 
     
-    tbUnit.addRow( new rowItem("local humi", "3434", "설명2", 25) )
+    
+    
 
 
+    const searchEvnt = ()=>{
+        const query =  $('#inputQuery').val()
+        const tbUnit = new tableUnit()
+        const port = 11000
+        const url = `http://127.0.0.1:${port}/searchApi/search/${query}`
+        tbUnit.removeAll()
+        fetch(url, {
+            method : "get",
+            headers: {
+                "Content-Type": "text/plain"
+            },
+        }).then(async (responses) => {
+            responses = await responses.json()
+            
+            for(let res of responses){
+                tbUnit.addRow( new rowItem(res.title, res.sensorid, res.description, res.count) )
+            }
+        }).cathc((err) => {
+            console.fetch("검색 url 조회 에러!")
+        })
+    }
 </script>
 
 <style>
