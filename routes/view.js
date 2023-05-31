@@ -19,9 +19,9 @@ router.get('/getSensors/', async function (req, res) {
                 title: repo.title,
                 description: repo.description,
             }
-            const port = 100080
+            const port = 11000
             const ip = "localhost"
-            const inputurl = `http://${ip}:${port}/:${repo.sensorid}/:valueid/:value/:init/`
+            const inputurl = `http://${ip}:${port}/sensor/${repo.sensorid}/:valueid/:value/:init/`
             const exporturl = "http://" + ip + ":" + port + "/view/exportSensorData/" + repo.sensorid
             response['inputurl'] = inputurl
             response['exporturl'] = exporturl
