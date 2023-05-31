@@ -25,27 +25,32 @@ router.get("/validation/:sensorid", async function (req, res) {
     })
 
     let assertion = assertBlockChain(records,
-        record => SHA256(record.sensorid + record.valueid + record.value),
+        record => SHA256(`${record.sensorid}${record.valueid}${record.value}${record.createAt}`),
         record => record.beforehash
     )
     res.send(assertion)
 })
 
-router.post("/:sensorid/:valueid/:value/:init", async function (req, res) {
+const addSensorValue = async function (req, res) {
     let lastBlock = await models.svalue.findOne({
-        where: { sensorid: req.params.sensorid },
-        order: [ [ 'createdAt', 'DESC' ]],
-    }).dataValues
-
+        where: {sensorid: req.params.sensorid},
+        order: [['createdAt', 'DESC']],
+    })
 
     models.svalue.create({
         sensorid: req.params.sensorid,
         valueid: req.params.valueid,
         value: req.params.value,
-        beforehash: lastBlock === null ? "" : SHA256(`${lastBlock.sensorid}${lastBlock.valueid}${lastBlock.value}`)
+        beforehash: lastBlock === null ? "" : SHA256(`${lastBlock.sensorid}${lastBlock.valueid}${lastBlock.value}${lastBlock.createAt}`)
     })
+}
+
+router.post("/:sensorid/:valueid/:value", addSensorValue)
+
+router.post("/:sensorid/:valueid/:value/:init", async function (req, res) {
+    await addSensorValue(req, res)
     if (req.params.init === "false") return
-    let peers = await getPeers("127.0.0.1", 8000)
+    let peers = await getPeers("127.0.0.1", 8000) // 트래커의 주소는 우선 하드 코딩하는 것으로.
     let hasResults = await Promise.all(peers.map(hasSensor(req.params.sensorid)))
     let availablePeers = peers.filter((_, i) => hasResults[i])
     availablePeers.map(
@@ -58,7 +63,7 @@ router.post("/:sensorid/:valueid/:value/:init", async function (req, res) {
 
 router.delete("/:sensorid", function (req, res) {
     models.svalue.destroy({
-        where: { sensorid: req.params.sensorid }
+        where: {sensorid: req.params.sensorid}
     }).then(_ => res.send("success"))
         .catch(reason => res.send(reason))
 })
