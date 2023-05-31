@@ -27,7 +27,7 @@ router.get("/validation/:sensorid", async function (req, res) {
     })
 
     let assertion = assertBlockChain(records,
-        record => SHA256(record.sensorid + record.value),
+        record => SHA256(record.sensorid + record.valueid + record.value),
         record => record.beforehash
     )
     res.send(assertion)
@@ -44,7 +44,7 @@ router.post("/:sensorid/:valueid/:value/:init", async function (req, res) {
         sensorid: req.params.sensorid,
         valueid: req.params.valueid,
         value: req.params.value,
-        beforehash: lastBlock === null ? "" : SHA256(lastBlock.sensorid + lastBlock.valueid + lastBlock.value)
+        beforehash: lastBlock === null ? "" : SHA256(`${lastBlock.sensorid}${lastBlock.valueid}${lastBlock.value}`)
     })
     if (req.params.init === "false") return
     let peers = await getPeers("127.0.0.1", 8000)
