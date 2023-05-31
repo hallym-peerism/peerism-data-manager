@@ -28,10 +28,10 @@ router.post('/', async function (req, res) {
     models.repo.create(req.body)
         .then(_ => res.send("success"))
 
-    getPeers("", 8000)
-        .then(peers => {
-            peers[0].address
-        })
+    // getPeers("", 8000)
+    //     .then(peers => {
+    //         peers[0].address
+    //     })
 })
 
 module.exports = router

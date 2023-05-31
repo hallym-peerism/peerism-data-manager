@@ -41,7 +41,7 @@ router.post("/:sensorid/:valueid/:value/:init", async function (req, res) {
         sensorid: req.params.sensorid,
         valueid: req.params.valueid,
         value: req.params.value,
-        beforehash: SHA256(lastBlock.dataValues)
+        beforehash: SHA256(lastBlock.dataValues) // 어떻게 짤지 고민.
     })
     if (req.params.init === "false") return
     let peers = await getPeers("127.0.0.1", 8000)

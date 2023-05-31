@@ -69,9 +69,8 @@
     </div>
     <script>
         $("#submit-btn").click(() => {
-            let sensorID = 0
             $.post("http://localhost:11000/sensors", {
-                sensorid: sensorID,
+                sensorid: Math.floor(Math.random() * 10000),
                 title: $("#sensor-name").val(),
                 description: $("#sensor-desc").val()
             }, function (data) {
