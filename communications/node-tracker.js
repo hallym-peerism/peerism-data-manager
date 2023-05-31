@@ -30,8 +30,8 @@ const axios = require("axios");
  */
 async function getPeers(url, port) {
     return [{
-        address : "127.0.0.1",
-        port : "11000"
+        address: "127.0.0.1",
+        port: "11000"
     }].map(Peer.from)
 }
 
@@ -48,7 +48,23 @@ function hasSensor(sensorID) {
     }
 }
 
+/**
+ *
+ * @param sensorID
+ * @param valueID
+ * @param value
+ * @returns {function(Peer): Promise<axios.AxiosResponse<any>>}
+ */
+function insertSensorValue(sensorID, valueID, value) {
+    return async function (peer) {
+        let route = ""
+        let url = `${peer.address}:${peer.port}/${route}/${sensorID}/${valueID}/${value}/false`
+        return axios.post(url)
+    }
+}
+
 module.exports = {
     getPeers: getPeers,
-    hasSensor: hasSensor
+    hasSensor: hasSensor,
+    insertSensorValue: insertSensorValue
 }

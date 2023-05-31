@@ -2,10 +2,10 @@ const express = require('express')
 const router = express.Router()
 const models = require('../models')
 const {assertBlockChain, SHA256} = require("../lib/blockchain");
-const {getPeers, hasSensor} = require("../communications/node-tracker");
+const {getPeers, hasSensor, insertSensorValue} = require("../communications/node-tracker");
 
-// const sequelize = require('sequelize')
-// const svalue = require('../models/svalue')(sequelize, sequelize.DataTypes)
+const sequelize = require('sequelize')
+const svalue = require('../models/svalue')(sequelize, sequelize.DataTypes)
 
 router.get("/:sensorid", function (req, res) {
     models.svalue.findAll({
@@ -31,21 +31,28 @@ router.get("/validation/:sensorid", async function (req, res) {
     res.send(assertion)
 })
 
-router.post("/:sensorid/:valueid/:value", async function (req, res) {
-    models.svalue.create({
-        sensorid: SHA256(
-            req.params.sensorid +
-            req.params.valueid +
-            req.params.value
-        ),
-        valueid: 1,
-        value: 314,
-        beforehash: beforehash
+router.post("/:sensorid/:valueid/:value/:init", async function (req, res) {
+    let lastBlock = await svalue.findOne({
+        where: { sensorid: req.params.sensorid },
+        order: [ [ 'createdAt', 'DESC' ]],
     })
+
+    models.svalue.create({
+        sensorid: req.params.sensorid,
+        valueid: req.params.valueid,
+        value: req.params.value,
+        beforehash: SHA256(lastBlock.dataValues)
+    })
+    if (req.params.init === "false") return
     let peers = await getPeers("127.0.0.1", 8000)
     let hasResults = await Promise.all(peers.map(hasSensor(req.params.sensorid)))
     let availablePeers = peers.filter((_, i) => hasResults[i])
-    availablePeers.map()
+    availablePeers.map(
+        insertSensorValue(
+            req.params.sensorid,
+            req.params.valueid,
+            req.params.value
+        ))
 })
 
 router.delete("/:sensorid", function (req, res) {
