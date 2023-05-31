@@ -56,27 +56,38 @@
             margin-top: 6px;
             margin-right: 10px;
         }
+        
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <script>
         class Sensor {
-            constructor(name) {
-                this.name = name
-                this.key = Math.round(Math.random()*90000000+10000000)
-                this.available = true
+            constructor(title, sensorid ,values, createAt, exportUrl, apiUrl) {
+                this.title = title 
+                this.sensorid  = sensorid 
+                this.values = values
+                this.createAt = createAt
+                this.exportUrl = exportUrl  
+                this.apiUrl = apiUrl
+                 this.available = true
+
             }
 
             toDom() {
+
                 let card = document.createElement("div")
                 card.className = "card sensor"
                 card.innerHTML = `
                     <table>
-                        <tr>
+                        <tr> 
                             <td rowspan="2">
-                                <h1>${this.available ? this.name : "<del>" + this.name + "</del>"}</h1><br>
+                                <h1>${this.title}</h1><br>
+                                <span>key: </span><span class="keyview">${this.sensorid }</span>
+
+                                <h1>${this.available ? this.title : "<del>" + this.title + "</del>"}</h1><br>
                                 <span>key: </span><span class="keyview">${this.key}</span>
+
                             </td>
                             <td rowspan="1">
                                 <span class="ago-badge">
@@ -92,7 +103,24 @@
                             </td>
                         </tr>
                     </table>
-                    <canvas></canvas>`
+                    <canvas></canvas>
+
+
+                    <div class="apiBox">
+                        <div class="input-group">
+                            <div class="input-group-text" id="basic-addon3">API Input</div>
+                            <div type="text" class="form-control inputUrl" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+                                ${this.apiUrl}
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-text" id="basic-addon3">Export Input</div>
+                            <div type="text" class="form-control exportUrl" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
+                                ${this.exportUrl}
+                            </div>
+                        </div>
+                    </div>
+                    `
                 let canvas = card.querySelector("canvas")
                 // let canvasSlot = card.querySelector(".canvas-slot")
                 canvas.style.display = "none"
@@ -105,13 +133,15 @@
                     //     canvasSlot.classList.add("collapse")
                     // }
                 }
+                
+                // , , exportUrl, apiUrl
                 new Chart(canvas, {
                     type: 'line',
                     data: {
-                        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                        labels: this.createAt,
                         datasets: [{
                             label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
+                            data: this.values,
                             borderWidth: 1
                         }]
                     },
@@ -128,10 +158,30 @@
         }
 
         window.onload = () => {
+            /*
             for (let i = 0; i < 10; i++)
                 $(".card-slot")
                     .append(new Sensor("alice").toDom())
+                    */
         }
+
+ 
+        $.ajax({ // fetch는 버그 있음!
+            url: "http://localhost:11000/view/getSensors",
+            type: 'GET',
+            dataType: 'json',  
+            contentType: 'application/json',
+            success: function (ress) {
+                for(let res of ress){ 
+                    $(".card-slot")
+                    .append(new Sensor(res.title, res.sensorid, res.values, res.createdAt, res.exporturl, res.inputurl).toDom())
+                }
+            }, 
+            error: function (err) {
+                console.error(`${err}에러!`);
+            }
+        });
+    
     </script>
 </head>
 
