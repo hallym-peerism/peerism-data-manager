@@ -44,10 +44,6 @@ class tableUnit {
 }
 
 
-
-
-
-
 const searchEvnt = () => {
     const query = $('#inputQuery').val()
     const tbUnit = new tableUnit()
@@ -92,4 +88,6 @@ const addRepo = (title, sensorid, description) => {
             console.error("repo 추가 에러!");
         }
     });
+
+    
 }
