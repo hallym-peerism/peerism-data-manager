@@ -5,7 +5,7 @@ const {assertBlockChain, SHA256} = require("../lib/blockchain");
 const {getPeers, hasSensor, insertSensorValue} = require("../communications/node-tracker");
 
 const sequelize = require('sequelize')
-const svalue = require('../models/svalue')(sequelize, sequelize.DataTypes)
+// const svalue = require('../models/svalue')(sequelize, sequelize.DataTypes)
 
 router.get("/:sensorid", function (req, res) {
     models.svalue.findAll({

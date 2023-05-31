@@ -21,7 +21,7 @@ expressApp.use(cors());
 const models = require("./models/")
 
 // models.repo.create({
-//     sensorid : "1234",
+//     sensorid : "123",
 //     title : "제목1",
 //     description : "소개",
 // })

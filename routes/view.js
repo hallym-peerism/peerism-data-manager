@@ -1,74 +1,63 @@
 const express = require('express')
 const router = express.Router()
 const models = require('../models')
-const {getPeers} = require("../communications/node-tracker");
-const {assertBlockChain, SHA256} = require("../lib/blockchain");
+const { getPeers } = require("../communications/node-tracker");
+const { assertBlockChain, SHA256 } = require("../lib/blockchain");
 
-router.get('/getSensor' ,async function (req, res) {
+router.get('/getSensors/', async function (req, res) {
+    responses = []
+
+
     await models.repo.findAll({
-            where: { sensorid: req.params.sensorid },
-            order : [ [ 'createdAt', 'DESC' ]],
-        }
-    )
-        .then((repos) => {
-            repos.forEach((repo) => {
-            
-                models.svalue.findAll({
-                    where : {sensorid : repo.sensorid},
-                }).then((svlause) => {
+        order: [['createdAt', 'DESC']],
+    }).then(async (repos) => {
 
+        for (let repo of repos) {
 
-                    if(svalues.length == 0){
-                        console.error("/getSensor : sensorId에 해당하는 데이터가 없음")
-                        res.status(404).send("포트포워딩된 IP가 존재하지 않음")
-                    }
-                    
-                    const port = 100080
-                    const ip = "localhost"
-                    
-                    const inputurl = "http://"+ ip +":" + port + "/view/addSensorData/" + repo.sensorId  + "/{value}"
-                    const exporturl = "http://"+ ip +":" + port + "/view/exportSensorData/" + repo.sensorId 
+            response = {
+                sensorid: repo.sensorid,
+                title: repo.title,
+                description: repo.description,
+            }
+            const port = 100080
+            const ip = "localhost"
+            const inputurl = `http://${ip}:${port}/:${repo.sensorid}/:valueid/:value/:init/`
+            const exporturl = "http://" + ip + ":" + port + "/view/exportSensorData/" + repo.sensorid
+            response['inputurl'] = inputurl
+            response['exporturl'] = exporturl
 
-                    response = {
-                        sensorId : repo.sensorid,
-                        title : repo.title,
-                        description : repo.description,
-                        values : svlause,
-                        inputurl : inputurl,
-                        exporturl : exporturl
-                    }
+            await models.svalue.findAll({
+                where: { sensorid: repo.sensorid },
+                order: [['createdAt', 'DESC']],
+            }).then((svalues) => {
+                const values = JSON.parse(JSON.stringify(svalues))
+                response['values'] = values.map((value) => value.value)
+                response['createdAt'] = values.map((value) => value.createdAt)
 
-                } )
+                responses.push(response)
+                return
+            }).catch((err) => {
+                console.error(err)
             })
-        })
 
-        res.send(response)
-})
-
-router.get('/view/addSensorData/:sensorId/:values', async (req, res) => {
-    await models.svalue.create({
-        sensorid: req.params.sensorid,
-        value: req.params.value,
-        beforehash: SHA256(lastBlock.dataValues) // 어떻게 짤지 고민.
-    }).then(() => {
-        res.send("success")
-    }).catch(() => {
-        res.status(404).send(" /view/addSensorData/:sensorId/:values fail")
+        }
     })
-   
+
+    res.setHeader('Content-Type', 'application/json').send(responses)
+
 })
 
-
-router.get('/view/exportSensorData/:sensorid', async (req, res) => {
+router.get('/exportSensorData/:sensorid', async (req, res) => {
     const datas = await models.svalue.findAll({
         where: {
             sensorid: req.params.sensorid
         }
     }).then(records => {
         res.send(JSON.stringify(records))
-    }).cathc(() => {
+    }).catch((err) => {
+        console.error(err)
         res.status(404).send(" /view/exportSensorData/:sensorid fail")
-    }) 
+    })
 
 
 })
