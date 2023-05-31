@@ -32,7 +32,7 @@ router.get("/validation/:sensorid", async function (req, res) {
 })
 
 router.post("/:sensorid/:valueid/:value/:init", async function (req, res) {
-    let lastBlock = await svalue.findOne({
+    let lastBlock = await models.svalue.findOne({
         where: { sensorid: req.params.sensorid },
         order: [ [ 'createdAt', 'DESC' ]],
     })
