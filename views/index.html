@@ -71,7 +71,6 @@
                 this.exportUrl = exportUrl  
                 this.apiUrl = apiUrl
                  this.available = true
-
             }
 
             toDom() {
@@ -82,24 +81,24 @@
                     <table>
                         <tr> 
                             <td rowspan="2">
-                                <h1>${this.title}</h1><br>
-                                <span>key: </span><span class="keyview">${this.sensorid }</span>
-
                                 <h1>${this.available ? this.title : "<del>" + this.title + "</del>"}</h1><br>
-                                <span>key: </span><span class="keyview">${this.key}</span>
+                                <span>key: </span><span class="keyview">${this.sensorid}</span>
+                                <button class="btn btn-dark" onclick="getValid(${this.sensorid})">Valid</button>
 
                             </td>
                             <td rowspan="1">
                                 <span class="ago-badge">
                                     <i class="fa-solid fa-clock" style="margin-right: 5px;"></i>
-                                    a few second ago
-                                </span>
+                                      
+                                </span> 
+                                
                             </td>
-                        </tr>
+
+                        </tr> 
                         <tr>
                             <td class="last-value">
                                 <span class="left">last uploaded: </span>
-                                <span class="right">10.2</span>
+                                <span class="right">${this.values[0] }</span> 
                             </td>
                         </tr>
                     </table>
@@ -116,7 +115,7 @@
                         <div class="input-group">
                             <div class="input-group-text" id="basic-addon3">Export Input</div>
                             <div type="text" class="form-control exportUrl" id="basic-url" aria-describedby="basic-addon3 basic-addon4">
-                                ${this.exportUrl}
+                                ${ this.exportUrl }
                             </div>
                         </div>
                     </div>
@@ -133,6 +132,8 @@
                     //     canvasSlot.classList.add("collapse")
                     // }
                 }
+                
+                
                 
                 // , , exportUrl, apiUrl
                 new Chart(canvas, {
@@ -155,6 +156,23 @@
                 })
                 return [card]
             }
+
+
+        }
+
+        const getValid = (sensorid) => {
+            $.ajax({ // fetch는 버그 있음!
+                url: "http://localhost:11000/sensor/validation/"+sensorid,
+                type: 'GET',
+                dataType: 'json',  
+                contentType: 'application/json',
+                success: function (res) {
+                    $("#validation").html(res.valid)
+                }, 
+                error: function (err) {
+                    console.error(`${err} validation 에러!`);
+                }
+            });
         }
 
         window.onload = () => {
@@ -190,7 +208,7 @@
 <div class="main-panel container">
     <header>
         <h1 style="float: left;">Sensors</h1>
-
+            <span class="input-group-text" style="width:200px" id="validation">validation 결과값</span>
         <div class="dropdown">
             
             <a id="add-btn" class="btn btn-secondary dropdown-toggle" href="#" role="button"
@@ -208,6 +226,7 @@
         
     </header>
     <br>
+    
     <div class="card-slot"></div>
 </div>
 </body>
