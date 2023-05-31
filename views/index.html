@@ -65,6 +65,7 @@
             constructor(name) {
                 this.name = name
                 this.key = Math.round(Math.random()*90000000+10000000)
+                this.available = true
             }
 
             toDom() {
@@ -74,7 +75,7 @@
                     <table>
                         <tr>
                             <td rowspan="2">
-                                <h1>${this.name}</h1><br>
+                                <h1>${this.available ? this.name : "<del>" + this.name + "</del>"}</h1><br>
                                 <span>key: </span><span class="keyview">${this.key}</span>
                             </td>
                             <td rowspan="1">
