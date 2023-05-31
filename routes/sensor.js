@@ -4,7 +4,9 @@ const models = require('../models')
 const {assertBlockChain, SHA256} = require("../lib/blockchain");
 const {getPeers, hasSensor, insertSensorValue} = require("../communications/node-tracker");
 
-const sequelize = require('sequelize')
+
+// const sequelize = require('sequelize')
+
 // const svalue = require('../models/svalue')(sequelize, sequelize.DataTypes)
 
 router.get("/:sensorid", function (req, res) {
@@ -35,13 +37,13 @@ router.post("/:sensorid/:valueid/:value/:init", async function (req, res) {
     let lastBlock = await models.svalue.findOne({
         where: { sensorid: req.params.sensorid },
         order: [ [ 'createdAt', 'DESC' ]],
-    })
+    }).dataValues
 
     models.svalue.create({
         sensorid: req.params.sensorid,
         valueid: req.params.valueid,
         value: req.params.value,
-        beforehash: SHA256(lastBlock.dataValues) // 어떻게 짤지 고민.
+        beforehash: lastBlock === null ? "" : SHA256(lastBlock.sensorid + lastBlock.valueid + lastBlock.value)
     })
     if (req.params.init === "false") return
     let peers = await getPeers("127.0.0.1", 8000)
