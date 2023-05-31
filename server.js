@@ -38,7 +38,7 @@ const models = require("./models/")
 expressApp.use("/sensor", require("./routes/sensor"))
 expressApp.use("/sensors", require("./routes/sensors"))
 expressApp.use("/searchApi", require("./routes/searchApi"))
-
+expressApp.use("/view", require("./routes/view"))
 
 expressApp.post('/new-repo', (req, res) => {
     console.log(req.body)
