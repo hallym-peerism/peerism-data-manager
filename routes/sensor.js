@@ -39,6 +39,7 @@ router.post("/:sensorid/:valueid/:value/:init", async function (req, res) {
         order: [ [ 'createdAt', 'DESC' ]],
     }).dataValues
 
+
     models.svalue.create({
         sensorid: req.params.sensorid,
         valueid: req.params.valueid,
